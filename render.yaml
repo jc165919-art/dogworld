@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: dogworld
+    runtime: python
+    buildCommand: pip install -r requirements.txt && python setup_translation.py
+    startCommand: gunicorn app:app --bind 0.0.0.0:$PORT
+    healthCheckPath: /api/status
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DOG_API_KEY
+        sync: false
