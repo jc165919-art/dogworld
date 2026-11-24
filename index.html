@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DogWorld | Tudo sobre o universo dos cães</title>
+  <meta name="description" content="Raças, alimentação, saúde e cuidados diários para o seu melhor amigo.">
+  <script>
+    try {
+      const temaSalvo = localStorage.getItem("dogworld-tema");
+      const usarTemaEscuro = temaSalvo
+        ? temaSalvo === "escuro"
+        : window.matchMedia("(prefers-color-scheme: dark)").matches;
+      if (usarTemaEscuro) document.documentElement.dataset.tema = "escuro";
+    } catch (erro) {
+      console.warn("DogWorld: não foi possível carregar a preferência de tema.", erro);
+      if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        document.documentElement.dataset.tema = "escuro";
+      }
+    }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,500;9..144,700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="header" id="topo">
+  <div class="container header__inner">
+    <a href="#topo" class="logo" aria-label="DogWorld, início">
+      <img src="logo-dogworld.png" alt="DogWorld — Aprenda, cuide, ame" width="120" height="80">
+    </a>
+
+    <nav class="nav" id="menu" aria-label="Principal">
+      <a href="#topo">Início</a>
+      <a href="#racas">Raças</a>
+      <!-- Quando as páginas existirem, troque por alimentacao.html, saude.html e cuidados.html -->
+      <a href="#cuidados">Alimentação</a>
+      <a href="#cuidados">Saúde</a>
+      <a href="#cuidados">Cuidados</a>
+    </nav>
+
+    <div class="header__actions">
+      <button class="icon-btn" id="btn-busca" aria-label="Pesquisar raças" aria-expanded="false" aria-controls="busca">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.500-3.500"/></svg>
+      </button>
+      <button class="icon-btn theme-btn" id="btn-tema" type="button" aria-label="Ativar modo escuro" title="Ativar modo escuro" aria-pressed="false">
+        <svg class="theme-btn__lua" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A9 9 0 0 1 11 3.1 9 9 0 1 0 20.9 13Z"/></svg>
+        <svg class="theme-btn__sol" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+      </button>
+      <button class="icon-btn menu-btn" id="btn-menu" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="busca" id="busca" hidden>
+    <div class="container">
+      <form id="form-busca" role="search">
+        <label for="campo-busca" class="sr-only">Nome da raça</label>
+        <input type="search" id="campo-busca" placeholder="Busque uma raça, por exemplo: Golden Retriever" autocomplete="off">
+        <button type="submit" class="btn btn--gold">Buscar</button>
+      </form>
+      <p class="busca__msg" id="busca-msg" role="status"></p>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__texto">
+        <h1>Tudo sobre o universo dos cães.</h1>
+        <p>Descubra raças, aprenda sobre cuidados e ofereça uma vida mais saudável e feliz ao seu melhor amigo.</p>
+        <div class="hero__botoes">
+          <a href="#racas" class="btn btn--gold">Explorar raças</a>
+          <a href="#cuidados" class="btn btn--outline">Aprender sobre cuidados</a>
+        </div>
+      </div>
+      <div class="hero__imagem">
+        <img src="img/hero.png" alt="Golden retriever correndo em um campo" width="700" height="800" fetchpriority="high">
+      </div>
+    </div>
+  </section>
+
+  <section class="secao" id="racas">
+    <div class="container">
+      <div class="secao__topo">
+        <h2>Raças de cães</h2>
+        <p>Pesquise entre centenas de raças e abra cada cartão para consultar suas características.</p>
+      </div>
+
+      <p class="busca__msg" id="racas-msg" role="status" aria-live="polite"></p>
+      <div class="grid grid--4" id="racas-lista">
+        <article class="card raca" data-nome="Golden Retriever">
+          <img src="img/golden.png" alt="Golden retriever deitado ao ar livre" loading="lazy" width="350" height="260">
+          <div class="card__corpo">
+            <h3>Golden Retriever</h3>
+            <p>Dócil, paciente e sociável. Ótimo com crianças e com toda a família.</p>
+            <ul class="raca__info" hidden>
+              <li><strong>Porte:</strong> grande</li>
+              <li><strong>Temperamento:</strong> amigável e obediente</li>
+              <li><strong>Vida média:</strong> 10 a 12 anos</li>
+            </ul>
+            <button class="btn btn--small" type="button" aria-expanded="false">Conhecer raça</button>
+          </div>
+        </article>
+
+        <article class="card raca" data-nome="Labrador">
+          <img src="img/labrador.png" alt="Labrador amarelo de frente" loading="lazy" width="350" height="260">
+          <div class="card__corpo">
+            <h3>Labrador</h3>
+            <p>Ativo, leal e curioso. Adora brincar e aprende rápido com treino positivo.</p>
+            <ul class="raca__info" hidden>
+              <li><strong>Porte:</strong> grande</li>
+              <li><strong>Temperamento:</strong> alegre e companheiro</li>
+              <li><strong>Vida média:</strong> 10 a 12 anos</li>
+            </ul>
+            <button class="btn btn--small" type="button" aria-expanded="false">Conhecer raça</button>
+          </div>
+        </article>
+
+        <article class="card raca" data-nome="Poodle">
+          <img src="img/poodle.png" alt="Poodle marrom em um gramado" loading="lazy" width="350" height="260">
+          <div class="card__corpo">
+            <h3>Poodle</h3>
+            <p>Inteligente e elegante. Existe em vários tamanhos e pede escovação frequente.</p>
+            <ul class="raca__info" hidden>
+              <li><strong>Porte:</strong> do toy ao padrão</li>
+              <li><strong>Temperamento:</strong> esperto e atento</li>
+              <li><strong>Vida média:</strong> 12 a 15 anos</li>
+            </ul>
+            <button class="btn btn--small" type="button" aria-expanded="false">Conhecer raça</button>
+          </div>
+        </article>
+
+        <article class="card raca" data-nome="Husky Siberiano">
+          <img src="img/husky.png" alt="Husky siberiano em close" loading="lazy" width="350" height="260">
+          <div class="card__corpo">
+            <h3>Husky Siberiano</h3>
+            <p>Enérgico e independente. Precisa de muito exercício e de rotina de passeios.</p>
+            <ul class="raca__info" hidden>
+              <li><strong>Porte:</strong> médio a grande</li>
+              <li><strong>Temperamento:</strong> brincalhão e teimoso</li>
+              <li><strong>Vida média:</strong> 12 a 14 anos</li>
+            </ul>
+            <button class="btn btn--small" type="button" aria-expanded="false">Conhecer raça</button>
+          </div>
+        </article>
+      </div>
+      <div class="racas__mais">
+        <button class="btn btn--outline" id="racas-mais" type="button" hidden>Mostrar mais raças</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao secao--branca" id="cuidados">
+    <div class="container">
+      <div class="secao__topo">
+        <h2>Cuidar bem é um hábito diário</h2>
+        <p>Orientações práticas para criar uma rotina mais saudável, segura e feliz em cada fase da vida do seu cão.</p>
+      </div>
+
+      <div class="grid grid--3">
+        <article class="card card--cuidado">
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16l-1.500 7a2 2 0 0 1-2 1.500h-9A2 2 0 0 1 5.500 19L4 12z"/><path d="M8 12c0-2.500 1.500-4 4-4s4 1.500 4 4M12 8V5"/></svg>
+          <h3>Alimentação saudável</h3>
+          <p>Uma alimentação equilibrada ajuda a manter a energia e o peso adequados. As necessidades mudam conforme idade, porte, saúde e nível de atividade.</p>
+          <ul class="card--cuidado__lista">
+            <li><strong>Escolha o alimento certo:</strong> prefira uma dieta completa adequada à fase de vida; converse com o veterinário antes de fazer mudanças importantes.</li>
+            <li><strong>Ajuste as porções:</strong> use as orientações da embalagem como referência e acompanhe o peso e a condição corporal do cão.</li>
+            <li><strong>Mantenha água fresca:</strong> deixe água limpa sempre disponível e lave os potes com frequência.</li>
+            <li><strong>Evite alimentos perigosos:</strong> chocolate, uvas e passas, cebola, alho e produtos com xilitol podem fazer mal. Em caso de ingestão, contate um veterinário.</li>
+          </ul>
+          <p class="card--cuidado__nota"><strong>Dica:</strong> mudanças de dieta devem ser graduais e orientadas quando houver doença ou necessidade especial.</p>
+        </article>
+        <article class="card card--cuidado">
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20s-7-4.300-7-10a4 4 0 0 1 7-2.500A4 4 0 0 1 19 10c0 5.700-7 10-7 10z"/></svg>
+          <h3>Saúde e prevenção</h3>
+          <p>Prevenção e acompanhamento profissional ajudam a identificar necessidades cedo e a cuidar do bem-estar do seu companheiro.</p>
+          <ul class="card--cuidado__lista">
+            <li><strong>Faça consultas regulares:</strong> o veterinário pode acompanhar crescimento, peso, saúde bucal e mudanças próprias da idade.</li>
+            <li><strong>Mantenha a prevenção em dia:</strong> vacinas e proteção contra parasitas devem seguir a orientação profissional e a realidade de cada cão.</li>
+            <li><strong>Observe mudanças:</strong> alterações persistentes no apetite, energia, pele, comportamento ou hábitos de urinar e evacuar merecem avaliação.</li>
+            <li><strong>Procure urgência:</strong> dificuldade para respirar, convulsões, sangramento intenso ou suspeita de intoxicação exigem atendimento veterinário imediato.</li>
+          </ul>
+          <p class="card--cuidado__nota"><strong>Importante:</strong> não ofereça medicamentos humanos nem substitua uma avaliação veterinária por orientações da internet.</p>
+        </article>
+        <article class="card card--cuidado">
+          <svg class="icone" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 14.500c.8 1 1.800 1.500 3 1.500s2.200-.5 3-1.500M9.500 10h.01M14.500 10h.01"/></svg>
+          <h3>Cuidados e comportamento</h3>
+          <p>Uma rotina previsível, atividades adequadas e interações gentis ajudam o cão a se sentir seguro e a conviver melhor com a família.</p>
+          <ul class="card--cuidado__lista">
+            <li><strong>Movimente-se todos os dias:</strong> adapte passeios e brincadeiras à idade, ao porte e à condição física; inclua tempo para farejar e explorar.</li>
+            <li><strong>Cuide da higiene:</strong> escove a pelagem e acompanhe unhas, orelhas e dentes. Peça orientação sobre frequência e produtos adequados.</li>
+            <li><strong>Ensine com gentileza:</strong> recompense comportamentos desejados, ofereça enriquecimento ambiental e apresente novidades aos poucos.</li>
+            <li><strong>Priorize a segurança:</strong> use guia em locais públicos, identificação atualizada e um ambiente protegido dentro de casa.</li>
+          </ul>
+          <p class="card--cuidado__nota"><strong>Observe seu cão:</strong> sinais de medo ou desconforto pedem espaço e uma abordagem tranquila, sem punições.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="destaque">
+    <img src="img/destaque.png" alt="Golden retriever brincando na neve" loading="lazy" width="1600" height="900">
+    <div class="container destaque__conteudo">
+      <blockquote>
+        <p>Um cão não precisa de uma vida perfeita. Precisa de alguém que cuide dele com amor.</p>
+      </blockquote>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__marca">
+      <a href="#topo" class="logo logo--claro">
+        <img src="logo-marca-claro.png" alt="" width="51" height="44">
+        <span>Dog<b>World</b></span>
+      </a>
+      <p>Um projeto sobre o universo dos cães: raças, alimentação, saúde e cuidados para quem ama seu melhor amigo.</p>
+    </div>
+    <nav class="footer__links" aria-label="Rodapé">
+      <a href="#topo">Início</a>
+      <a href="#racas">Raças</a>
+      <a href="#cuidados">Alimentação</a>
+      <a href="#cuidados">Saúde</a>
+      <a href="#cuidados">Cuidados</a>
+    </nav>
+  </div>
+  <p class="footer__copy">
+    © <span id="ano">2026</span> DogWorld. Todos os direitos reservados. Fotos: Unsplash.
+    <span class="footer__credit">Site desenvolvido por João Carlos Alves de Jesus.</span>
+  </p>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
