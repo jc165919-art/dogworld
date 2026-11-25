@@ -1,4 +1,10 @@
 """Instala localmente o modelo Argos Translate de inglês para português."""
+import os
+from pathlib import Path
+
+# O modelo fica dentro do projeto (a mesma pasta usada no dogapi.py)
+os.environ.setdefault("XDG_DATA_HOME", str(Path(__file__).resolve().parent / ".data"))
+
 import argostranslate.package
 import argostranslate.translate
 

@@ -1,4 +1,10 @@
 """Cliente da TheDogAPI; a chave permanece somente no backend."""
+import os
+from pathlib import Path
+
+# O modelo de tradução fica dentro do projeto (a mesma pasta usada no setup_translation.py)
+os.environ.setdefault("XDG_DATA_HOME", str(Path(__file__).resolve().parent / ".data"))
+
 import re
 import threading
 import time
