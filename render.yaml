@@ -1,16 +1,11 @@
-
 services:
   - type: web
     name: dogworld
     runtime: python
-    buildCommand: pip install -r requirements.txt && python setup_translation.py
+    buildCommand: pip install -r requirements.txt
     startCommand: gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 2 --timeout 120
     healthCheckPath: /api/status
     envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.9
-      - key: XDG_DATA_HOME
-        value: /opt/render/project/src/.data
       - key: SECRET_KEY
         generateValue: true
       - key: DOG_API_KEY

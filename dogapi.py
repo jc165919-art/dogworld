@@ -13,7 +13,6 @@ from difflib import SequenceMatcher
 from functools import lru_cache
 from typing import Any
 
-import argostranslate.translate
 import requests
 from flask import current_app
 
@@ -137,6 +136,9 @@ def _texto(valor: Any) -> str | None:
 
 @lru_cache(maxsize=1)
 def _obter_tradutor() -> Any:
+    # Importado só aqui: no Render a tradução fica desligada e o pacote nem é instalado
+    import argostranslate.translate
+
     with _TRADUCAO_LOCK:
         idiomas = {
             idioma.code: idioma
@@ -151,6 +153,10 @@ def _obter_tradutor() -> Any:
 
 @lru_cache(maxsize=4096)
 def _traduzir(texto: str) -> str:
+    # Tradução desligada por padrão (economiza memória no Render).
+    # Para traduzir no seu computador, defina TRADUCAO_ATIVA=1 no arquivo .env
+    if os.getenv("TRADUCAO_ATIVA", "0") != "1":
+        return texto
     if not any(caractere.isalpha() for caractere in texto):
         return texto
 
